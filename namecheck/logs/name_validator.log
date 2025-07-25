@@ -1,0 +1,4 @@
+2025-07-26 01:54:26,055 INFO: Name validation service starting... [in C:\Hacktoberfest\CodeFlare-AI\namecheck\name_validator.py:51]
+2025-07-26 01:54:26,612 WARNING: Custom names corpus not found. Using default names. [in C:\Hacktoberfest\CodeFlare-AI\namecheck\name_validator.py:78]
+2025-07-26 01:54:26,617 INFO: Created data directory [in C:\Hacktoberfest\CodeFlare-AI\namecheck\name_validator.py:308]
+2025-07-26 01:54:26,619 INFO: Name validation service is running on port 5000 [in C:\Hacktoberfest\CodeFlare-AI\namecheck\name_validator.py:318]

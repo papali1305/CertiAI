@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertiAI - Smart Certificate Generator</title>
+    <meta name="description" content="Generate and verify digital certificates with AI-powered validation">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-certificate"></i>
+                    <span class="pulse-animation"></span>
+                </div>
+                <h1 class="logo-text">CertiAI</h1>
+            </div>
+            <p class="tagline">Blockchain-Verified Digital Credentials with AI Validation</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Tab Navigation -->
+            <nav class="tab-navigation">
+                <button class="tab-button active" data-tab="generate">
+                    <i class="fas fa-certificate"></i> Generate
+                </button>
+                <button class="tab-button" data-tab="verify">
+                    <i class="fas fa-search"></i> Verify
+                </button>
+                <button class="tab-button" data-tab="templates">
+                    <i class="fas fa-palette"></i> Templates
+                </button>
+                <div class="tab-indicator"></div>
+            </nav>
+
+            <!-- Tab Contents -->
+            <div class="tab-contents">
+                <!-- Generate Tab -->
+                <div class="tab-content active" id="generate-tab">
+                    <form id="certificate-form" class="certificate-form">
+                        <div class="form-grid">
+                            <!-- Participant Details -->
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-user-graduate"></i> Participant Details
+                                </h3>
+                                <div class="form-group">
+                                    <label for="participant-name">Full Name</label>
+                                    <div class="input-with-validation">
+                                        <input type="text" id="participant-name" required 
+                                               placeholder="Enter participant's full name">
+                                        <div class="validation-status"></div>
+                                    </div>
+                                    <div id="name-suggestions" class="suggestions-dropdown"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="participant-email">Email Address</label>
+                                    <input type="email" id="participant-email" 
+                                           placeholder="participant@example.com">
+                                </div>
+                            </div>
+
+                            <!-- Certificate Details -->
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-award"></i> Certificate Details
+                                </h3>
+                                <div class="form-group">
+                                    <label for="certificate-title">Certificate Title</label>
+                                    <input type="text" id="certificate-title" required 
+                                           placeholder="e.g., Certificate of Completion">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="course-name">Course/Program Name</label>
+                                    <input type="text" id="course-name" required 
+                                           placeholder="e.g., Advanced AI Programming">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="completion-date">Completion Date</label>
+                                        <input type="date" id="completion-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expiry-date">Expiry Date (Optional)</label>
+                                        <input type="date" id="expiry-date">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Issuer Details -->
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-university"></i> Issuer Details
+                                </h3>
+                                <div class="form-group">
+                                    <label for="issuer-name">Issuing Organization</label>
+                                    <input type="text" id="issuer-name" required 
+                                           placeholder="Your organization name">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="issuer-signature">Authorized Signatory</label>
+                                    <input type="text" id="issuer-signature" required 
+                                           placeholder="Name of signatory">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="issuer-logo">Organization Logo</label>
+                                    <div class="file-upload">
+                                        <input type="file" id="issuer-logo" accept="image/*">
+                                        <label for="issuer-logo">
+                                            <i class="fas fa-upload"></i> Upload Logo
+                                        </label>
+                                        <span class="file-name">No file selected</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-undo"></i> Reset Form
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-magic"></i> Generate Certificate
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Verify Tab -->
+                <div class="tab-content" id="verify-tab">
+                    <div class="verification-container">
+                        <div class="verification-methods">
+                            <div class="method-card active" data-method="id">
+                                <div class="method-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <h3>Verify by ID</h3>
+                                <p>Enter the certificate ID to verify</p>
+                            </div>
+                            
+                            <div class="method-card" data-method="qr">
+                                <div class="method-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <h3>Scan QR Code</h3>
+                                <p>Upload or scan the certificate QR code</p>
+                            </div>
+                            
+                            <div class="method-card" data-method="nfc">
+                                <div class="method-icon">
+                                    <i class="fas fa-wifi"></i>
+                                </div>
+                                <h3>NFC Verification</h3>
+                                <p>Tap NFC-enabled certificate</p>
+                            </div>
+                        </div>
+
+                        <form id="verify-form" class="verify-form">
+                            <div class="method-content active" id="verify-id">
+                                <div class="form-group">
+                                    <label for="certificate-id">Certificate ID</label>
+                                    <input type="text" id="certificate-id" 
+                                           placeholder="Enter certificate ID" required>
+                                </div>
+                            </div>
+                            
+                            <div class="method-content" id="verify-qr">
+                                <div class="qr-upload-container">
+                                    <div class="qr-upload-box" id="qr-drop-zone">
+                                        <i class="fas fa-qrcode"></i>
+                                        <p>Drag & drop QR code image here</p>
+                                        <span>or</span>
+                                        <button type="button" class="btn btn-outline" id="browse-qr">
+                                            Browse Files
+                                        </button>
+                                        <input type="file" id="qr-file" accept="image/*" hidden>
+                                    </div>
+                                    <div class="qr-preview" id="qr-preview"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="method-content" id="verify-nfc">
+                                <div class="nfc-verification">
+                                    <i class="fas fa-nfc-symbol"></i>
+                                    <p>Hold your NFC-enabled device near the certificate</p>
+                                    <div class="nfc-status">
+                                        <div class="nfc-loading"></div>
+                                        <p>Waiting for NFC connection...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-verify">
+                                <i class="fas fa-search"></i> Verify Certificate
+                            </button>
+                        </form>
+
+                        <div id="verification-result" class="verification-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-shield-alt"></i>
+                                <p>Verification results will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Templates Tab -->
+                <div class="tab-content" id="templates-tab">
+                    <div class="templates-container">
+                        <h2 class="templates-title">Select a Certificate Template</h2>
+                        <div class="template-filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="academic">Academic</button>
+                            <button class="filter-btn" data-filter="professional">Professional</button>
+                            <button class="filter-btn" data-filter="creative">Creative</button>
+                        </div>
+                        
+                        <div class="templates-grid">
+                            <!-- Template items will be dynamically loaded -->
+                        </div>
+                        
+                        <div class="template-customization">
+                            <h3>Customize Selected Template</h3>
+                            <div class="customization-options">
+                                <div class="option-group">
+                                    <label>Color Scheme</label>
+                                    <div class="color-picker">
+                                        <input type="color" id="primary-color" value="#4361ee">
+                                        <input type="color" id="secondary-color" value="#3f37c9">
+                                    </div>
+                                </div>
+                                
+                                <div class="option-group">
+                                    <label>Font Style</label>
+                                    <select id="font-selector">
+                                        <option value="Inter">Inter</option>
+                                        <option value="Roboto">Roboto</option>
+                                        <option value="Montserrat">Montserrat</option>
+                                        <option value="Playfair Display">Playfair Display</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="option-group">
+                                    <label>Border Style</label>
+                                    <div class="border-options">
+                                        <button class="border-option active" data-border="classic">Classic</button>
+                                        <button class="border-option" data-border="modern">Modern</button>
+                                        <button class="border-option" data-border="elegant">Elegant</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="apply-template">
+                                <i class="fas fa-check"></i> Apply Template
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Certificate Preview Modal -->
+        <div class="modal" id="certificate-modal">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h2>Certificate Preview</h2>
+                    <button class="modal-close" id="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="certificate-preview" class="certificate-preview">
+                        <!-- Certificate content will be rendered here -->
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="download-options">
+                        <button class="btn btn-download" data-format="pdf">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                        <button class="btn btn-download" data-format="png">
+                            <i class="fas fa-image"></i> PNG
+                        </button>
+                        <button class="btn btn-download" data-format="svg">
+                            <i class="fas fa-file-image"></i> SVG
+                        </button>
+                    </div>
+                    
+                    <div class="share-options">
+                        <button class="btn btn-share" data-platform="email">
+                            <i class="fas fa-envelope"></i> Email
+                        </button>
+                        <button class="btn btn-share" data-platform="linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                        <button class="btn btn-share" data-platform="twitter">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p id="loading-text">Generating Certificate...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/qr-scanner.min.js"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
