@@ -1,1 +1,1 @@
-# wifi-analyzer-logger
+# CertiAI
